@@ -1,22 +1,26 @@
-// whattotest.cpp
+// Palindrome library function.
+#include <cassert>
+#include <cctype>
 #include <string>
 
 using namespace std;
 
-char normalizeChar(char ch) {
-	if ('a' <= ch && ch <= 'z') {
-		// if ch is a lowercase letter, return it.
-		return ch;
-	} else if ('A' <= ch && ch <= 'Z') {
-		// If ch is a capital letter, returns the lowercase version.
-		return ch + ('a' - 'A');
-	} else {
-		// if ch is anything else, returh the null character.
-		return '\0';
-	}
+static char normalizeChar(char ch) {
+        // Palindrome should only be called on ASCII characters.
+        assert(isascii(ch));
+
+        // If ch is a letter, return the lowercase.
+        if (isalpha(ch))
+                return tolower(ch);
+
+        // if ch is anything else, returh the null character.
+        return '\0';
 }
 
-bool isPalindrome(string str) {
+// Returns true iff str is a case-insensitive palindrome
+// after ignoring all non-alphabetic characters. str must be
+// 7-bit ASCII.
+extern bool isPalindrome(string str) {
 	// Returns true if the input string is a palindrome.
 	// ignores capitalization and all non-alphabetic characters.
 	int i = 0;
