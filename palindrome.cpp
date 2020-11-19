@@ -51,5 +51,4 @@ extern bool isPalindrome(string str) {
                 i++;
                 --j;
 	}
-	return true;
 }
