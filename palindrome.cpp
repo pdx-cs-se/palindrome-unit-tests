@@ -24,22 +24,24 @@ extern bool isPalindrome(string str) {
 	// Returns true if the input string is a palindrome.
 	// ignores capitalization and all non-alphabetic characters.
 	int i = 0;
-	int j = str.length() - 1;
+	int j = str.length();
 
-	while (i < j) {
-		char ch1 = '\0';
-		char ch2 = '\0';
-		// Skip over all non-alphabetic characters.
-		do {
-			ch1 = normalizeChar(str[i]);
-			i++;
-		} while (ch1 == '\0');
+	while (true) {
 
-		do {
-			ch2 = normalizeChar(str[j]);
-			j--;
-		} while (ch2 == '\0');
+		char ch1;
+		do
+			ch1 = normalizeChar(str[i++]);
+		while (ch1 == '\0' && i < j);
+		if (i >= j)
+			return true;
 		
+		char ch2;
+		do
+			ch2 = normalizeChar(str[--j]);
+		while (ch2 == '\0' && i < j);
+		if (i >= j)
+			return true;
+
 		if (ch1 != ch2) {
 			return false;
 		}
