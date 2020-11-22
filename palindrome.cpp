@@ -23,32 +23,59 @@ static char normalizeChar(char ch) {
 extern bool isPalindrome(string str) {
 	// Returns true if the input string is a palindrome.
 	// ignores capitalization and all non-alphabetic characters.
+	int n = str.length();
+	// Trival cases.
+	if (n <= 1)
+		// Empty string is a palindrome.
+		// One non-letter is a palindrome.
+		// One letter is a palindrom.
+		return true;
 	int i = 0;
-	int j = str.length() - 1;
+	int j = n;
+	// let removeNonAlpha(s) = s with non-alpha characters deleted
+	// let filter(s) = map(removeNonAlpha . normalizeChar, s)
+	// let rev(s) = string-reversal of s
+	// let rfilter(s) = rev(filter(s))
+	//
+	// Invariant:
+	//    i >= 0
+	//    j <= n
+	//    i + 1 < j
+	//    filter(str[0..i]) = rfilter(str[j..n])
 	while (true) {
-		char ch1;
-		while (true) {
-			if (i >= j)
-				return true;
-			ch1 = normalizeChar(str[i]);
-			if (ch1 != '\0')
-				break;
-			i++;
-		}
+		if (i + 1 >= j)
+			// filter(str[0..i]) = rfilter(str[j..n])
+			// j = i  (n even)
+			// j = i + 1 (n odd)
+			return true;
 
-		char ch2;
-		while (true) {
-			if (i >= j)
-				return true;
-			ch2 = normalizeChar(str[j]);
-			if (ch2 != '\0')
-				break;
-			--j;
+		// i + 1 < j
+		char ch1 = normalizeChar(str[i]);
+		if (ch1 == '\0') {
+			i += 1;
+			// filter(str[0..i]) = rfilter(str[j..n])
+			continue;
 		}
+		// ch1 is alpha
+
+		// i + 1 < j
+		char ch2 = normalizeChar(str[j - 1]);
+		if (ch2 == '\0') {
+			j -= 1;
+			// filter(str[0..i]) = rfilter(str[j..n])
+			continue;
+		}
+		// ch1 is alpha and ch2 is alpha
 
 		if (ch1 != ch2)
+			// filter(str[0..i]) != rfilter(str[j..n])
 			return false;
-                i++;
-                --j;
+		
+		// str[i] == str[j]
+		// filter(str[0..=i]) = rfilter(str[j-1..n])
+		i += 1;
+		j -= 1;
+		// filter(str[0..i]) = rfilter(str[j..n])
 	}
+	// not reached
 }
