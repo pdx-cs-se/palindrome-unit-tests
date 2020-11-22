@@ -1,5 +1,10 @@
 #include "palindrome.cpp"
 #include <gtest/gtest.h>
+#include <bits/stdc++.h>
+#include <cctype>
+#include <string>
+
+using namespace std;
 
 TEST(IsPalindromeTest, racecar) {
     ASSERT_EQ(true, isPalindrome("racecar"));
@@ -72,6 +77,32 @@ TEST(IsPalindromeTest, newline) {
 
 TEST(IsPalindromeTest, panama) {
     ASSERT_EQ(true, isPalindrome("A man, a plan, a canal: Panama!"));
+}
+
+static bool isPalindromeOracle(string s) {
+    string sfilter = "";
+    for (char const &c: s)
+        if (isalpha(c))
+            sfilter += c;
+    string srev(sfilter);
+    reverse(srev.begin(), srev.end());
+    return sfilter == srev;
+}
+
+static void genTest(unsigned n, string s) {
+    ASSERT_EQ(isPalindrome(s), isPalindromeOracle(s));
+    if (s.length() == n)
+        return;
+    char chars[] = {'a', 'b', '-', '\0'};
+    for (int i = 0; chars[i] != '\0'; i++) {
+        string splus(s);
+        splus += chars[i];
+        genTest(n, splus);
+    }
+}
+
+TEST(IsPalindromeTest, exhaustive9) {
+    genTest(9, "");
 }
 
 int main(int argc, char **argv) {
