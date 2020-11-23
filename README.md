@@ -1,12 +1,13 @@
 # palindrome-unit-tests: unit test demo
-Jeremy Vonderfecht
+Jeremy Vonderfecht and Bart Massey
 
-A buggy function for identifying palindromes, and a suite of
-unit tests for this function. Say `make test` to run the
-tests.
+A "proven correct" function for identifying palindromes, and
+a suite of unit tests for this function. The "proof",
+included in the source code, is quite casual. The unit tests
+cover some sample cases plus exhaustive testing up to fixed
+lengths.
 
-One of the tests is flaky: will fail on some but not all
-runs. See if you can fix the code!
+Say `make test` to run the tests.
 
 Requires Googletest unit test framework: `libgtest-dev` on
 Debian Linux.
