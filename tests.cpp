@@ -89,20 +89,23 @@ static bool isPalindromeOracle(string s) {
     return sfilter == srev;
 }
 
-static void genTest(unsigned n, string s) {
+static void genTest(unsigned n, string chars, string s) {
     ASSERT_EQ(isPalindrome(s), isPalindromeOracle(s));
     if (s.length() == n)
         return;
-    char chars[] = {'a', 'b', '-', '\0'};
-    for (int i = 0; chars[i] != '\0'; i++) {
+    for (const char &c: chars) {
         string splus(s);
-        splus += chars[i];
-        genTest(n, splus);
+        splus += c;
+        genTest(n, chars, splus);
     }
 }
 
-TEST(IsPalindromeTest, exhaustive9) {
-    genTest(9, "");
+TEST(IsPalindromeTest, exhaustive10ab) {
+    genTest(10, "ab-", "");
+}
+
+TEST(IsPalindromeTest, exhaustive8abc) {
+    genTest(8, "abc-", "");
 }
 
 int main(int argc, char **argv) {
