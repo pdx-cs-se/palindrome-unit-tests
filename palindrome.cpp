@@ -33,7 +33,7 @@ extern bool isPalindrome(string str) {
 	int i = 0;
 	int j = n;
 	// let removeNonAlpha(s) = s with non-alpha characters deleted
-	// let filter(s) = map(removeNonAlpha . normalizeChar, s)
+	// let filter(s) = removeNonAlpha(map(normalizeChar, s))
 	// let rev(s) = string-reversal of s
 	// let rfilter(s) = rev(filter(s))
 	//
@@ -47,26 +47,28 @@ extern bool isPalindrome(string str) {
 
 		char ch1 = normalizeChar(str[i]);
 		if (ch1 == '\0') {
+			// filter(str[0..i+1]) = rfilter(str[j..n])
 			i += 1;
 			// filter(str[0..i]) = rfilter(str[j..n])
 			continue;
 		}
-		// ch1 is alpha
+		// ch1 = str[i] is alpha
 
 		char ch2 = normalizeChar(str[j - 1]);
 		if (ch2 == '\0') {
+			// filter(str[0..i]) = rfilter(str[j-1..n])
 			j -= 1;
 			// filter(str[0..i]) = rfilter(str[j..n])
 			continue;
 		}
-		// ch1 is alpha and ch2 is alpha
+		// ch1 is alpha and ch2 = str[j] is alpha
 
 		if (ch1 != ch2)
 			// filter(str[0..i]) != rfilter(str[j..n])
 			return false;
 		
 		// str[i] == str[j]
-		// filter(str[0..=i]) = rfilter(str[j-1..n])
+		// filter(str[0..i+1]) = rfilter(str[j-1..n])
 		i += 1;
 		j -= 1;
 		// filter(str[0..i]) = rfilter(str[j..n])
