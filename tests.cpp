@@ -83,7 +83,7 @@ static bool isPalindromeOracle(string s) {
     string sfilter = "";
     for (char const &c: s)
         if (isalpha(c))
-            sfilter += c;
+            sfilter += tolower(c);
     string srev(sfilter);
     reverse(srev.begin(), srev.end());
     return sfilter == srev;
