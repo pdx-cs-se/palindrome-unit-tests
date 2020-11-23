@@ -42,13 +42,7 @@ extern bool isPalindrome(string str) {
 	//    j <= n
 	//    i + 1 < j
 	//    filter(str[0..i]) = rfilter(str[j..n])
-	while (true) {
-		if (i + 1 >= j)
-			// filter(str[0..i]) = rfilter(str[j..n])
-			// j = i  (n even)
-			// j = i + 1 (n odd)
-			return true;
-
+	while (i + 1 < j) {
 		// i + 1 < j
 		char ch1 = normalizeChar(str[i]);
 		if (ch1 == '\0') {
@@ -77,5 +71,8 @@ extern bool isPalindrome(string str) {
 		j -= 1;
 		// filter(str[0..i]) = rfilter(str[j..n])
 	}
-	// not reached
+        // filter(str[0..i]) = rfilter(str[j..n])
+        // j = i  (n even)
+        // j = i + 1 (n odd)
+        return true;
 }
