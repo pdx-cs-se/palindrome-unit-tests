@@ -44,6 +44,7 @@ extern bool isPalindrome(string str) {
 	//    filter(str[0..i]) = rfilter(str[j..n])
 	while (i + 1 < j) {
 		// i + 1 < j
+
 		char ch1 = normalizeChar(str[i]);
 		if (ch1 == '\0') {
 			i += 1;
@@ -52,7 +53,6 @@ extern bool isPalindrome(string str) {
 		}
 		// ch1 is alpha
 
-		// i + 1 < j
 		char ch2 = normalizeChar(str[j - 1]);
 		if (ch2 == '\0') {
 			j -= 1;
@@ -70,8 +70,10 @@ extern bool isPalindrome(string str) {
 		i += 1;
 		j -= 1;
 		// filter(str[0..i]) = rfilter(str[j..n])
+                // i <= j
 	}
         // filter(str[0..i]) = rfilter(str[j..n])
+        // i + 1 >= j and i <= j
         // j = i  (n even)
         // j = i + 1 (n odd)
         return true;
